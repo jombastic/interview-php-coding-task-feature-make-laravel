@@ -42,3 +42,7 @@ You can ask the interviewers for clarification if needed.
 NOTE: For this Notification Engine, it is acceptable that the destination is the same per channel. For example,
 with the email channel, the destination email and subject can be hard coded, and for the Slack channel, the recipient
 can also be hard coded.
+
+# Refactoring explanation
+
+Replaced if/else chains with the Strategy pattern: each channel (SlackChannel, EmailChannel) implements NotificationChannelInterface, and NotificationService delegates to the selected channel. Added a NotificationChannelFactory to create channel instances, and used dependency injection so Laravel resolves dependencies automatically. This follows SOLID principles, especially open/closed, so adding new channels (like WhatsApp) only requires creating a new class and adding it to the notification_channels.php config, without modifying existing code. Also standardized naming to PSR-2 conventions.
